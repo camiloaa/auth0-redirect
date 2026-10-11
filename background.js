@@ -43,7 +43,6 @@ async function updateRule() {
         }
       },
       condition: {
-        // The || anchors matching at the hostname boundary.
         regexFilter: "^https://[^/]+\\.auth0\\.com/",
         resourceTypes: ["main_frame"]
       }
