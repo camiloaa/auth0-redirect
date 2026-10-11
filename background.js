@@ -1,18 +1,27 @@
 const RULE_ID = 1;
 
+if (typeof browser == "undefined") {
+  // `browser` is not defined in Chrome, but Manifest V3 extensions in Chrome
+  // also support promises in the `chrome` namespace, like Firefox. To easily
+  // test the example without modifications, polyfill "browser" to "chrome".
+  globalThis.browser = chrome;
+}
+
 async function updateRule() {
-  const { connection } = await chrome.storage.local.get("connection");
+  console.log("Waiting async");
+  const { connection } = await browser.storage.local.get("connection");
   const value = typeof connection === "string" ? connection.trim() : "";
+  console.log("Waiting async " + value);
 
   // No configured value: remove the rule so requests are left alone.
   if (!value) {
-    await chrome.declarativeNetRequest.updateDynamicRules({
+    await browser.declarativeNetRequest.updateDynamicRules({
       removeRuleIds: [RULE_ID]
     });
     return;
   }
 
-  await chrome.declarativeNetRequest.updateDynamicRules({
+  await browser.declarativeNetRequest.updateDynamicRules({
     removeRuleIds: [RULE_ID],
     addRules: [{
       id: RULE_ID,
@@ -34,7 +43,6 @@ async function updateRule() {
       },
       condition: {
         // The || anchors matching at the hostname boundary.
-        urlFilter: "||auth0.com",
         regexFilter: "^https://[^/]+\\.auth0\\.com/",
         resourceTypes: ["main_frame"]
       }
@@ -42,14 +50,18 @@ async function updateRule() {
   });
 }
 
+
 // Rebuild on extension install/startup and whenever the option changes.
-chrome.runtime.onInstalled.addListener(() => {
+browser.runtime.onInstalled.addListener(() => {
+  console.log("Waiting installed");
   updateRule().catch(console.error);
 });
-chrome.runtime.onStartup.addListener(() => {
+browser.runtime.onStartup.addListener(() => {
+  console.log("Waiting start");
   updateRule().catch(console.error);
 });
-chrome.storage.onChanged.addListener((changes, area) => {
+browser.storage.onChanged.addListener((changes, area) => {
+  console.log("Waiting changed");
   if (area === "local" && changes.connection) {
     updateRule().catch(console.error);
   }
