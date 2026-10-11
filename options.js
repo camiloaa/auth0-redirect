@@ -1,5 +1,5 @@
 const input = document.getElementById("connection");
-const status = document.getElementById("status");
+const feedback = document.getElementById("status");
 
 async function load() {
   const { connection = "" } = await chrome.storage.local.get("connection");
@@ -8,9 +8,9 @@ async function load() {
 
 document.getElementById("save").addEventListener("click", async () => {
   await chrome.storage.local.set({ connection: input.value.trim() });
-  status.textContent = input.value.trim()
-    ? "Saved. The rule is active."
-    : "Saved. The rule is disabled.";
+  feedback.textContent = input.value.trim()
+    ? `Saved. Redirection enabled to: "${input.value.trim()}".`
+    : "Saved. Will not redirect.";
 });
 
 load().catch(console.error);

@@ -8,7 +8,8 @@
   "background": {
     "service_worker": "background.js",
     "scripts": ["background.js"]
-  },  "options_ui": {
+  },
+  "options_ui": {
     "page": "options.html"
   }
 }

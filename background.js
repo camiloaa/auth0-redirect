@@ -9,10 +9,10 @@ if (typeof browser == "undefined") {
 
 async function updateRule() {
   const { connection } = await browser.storage.local.get("connection");
-  const value = typeof connection === "string" ? connection.trim() : "";
+  const organization = typeof connection === "string" ? connection.trim() : "";
 
   // No configured value: remove the rule so requests are left alone.
-  if (!value) {
+  if (!organization) {
     console.debug("Auth0 will not redirect");
     await browser.declarativeNetRequest.updateDynamicRules({
       removeRuleIds: [RULE_ID]
@@ -20,7 +20,7 @@ async function updateRule() {
     return;
   }
 
-    console.debug("Auth0 will redirect to  " + value);
+  console.debug("Auth0 will redirect to  " + organization);
 
   await browser.declarativeNetRequest.updateDynamicRules({
     removeRuleIds: [RULE_ID],
@@ -36,7 +36,7 @@ async function updateRule() {
               removeParams: ["connection"],
               addOrReplaceParams: [{
                 key: "connection",
-                value
+                value: organization
               }]
             }
           }
@@ -51,18 +51,13 @@ async function updateRule() {
   });
 }
 
-
-// Rebuild redirection rule when there are changes.
-browser.runtime.onInstalled.addListener(() => {
-  console.debug("Auth0 redirect installed");
-  updateRule().catch(console.error);
-});
-
+// Create redirection rule at extension start.
 browser.runtime.onStartup.addListener(() => {
   console.debug("Auth0 redirect started");
   updateRule().catch(console.error);
 });
 
+// Rebuild redirection rule when there are changes.
 browser.storage.onChanged.addListener((changes, area) => {
   console.debug("Auth0 redirect changed");
   if (area === "local" && changes.connection) {
