@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "Auth0 Connection Rewriter",
+  "version": "1.0.0",
+  "description": "Replaces the connection parameter on Auth0 subdomain URLs.",
+  "permissions": ["storage", "declarativeNetRequest"],
+  "host_permissions": ["https://*.auth0.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "options_page": "options.html"
+}
