@@ -16,13 +16,12 @@
     "96": "icon.svg",
     "64": "icon.png"
   },
-  "id": "auth0-redirect@nodomain.local",
   "browser_specific_settings": {
-  "gecko": {
-    "data_collection_permissions": {
-      "required": [],
-      "optional": []
+    "gecko": {
+      "id": "auth0-redirect@nodomain.local",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
     }
   }
-}
 }
