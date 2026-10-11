@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Auth0 connection rewriter",
   "version": "1.0.0",
-  "description": "Fix Auth0 connection realm.",
+  "description": "Fix Auth0 connection realm. Be always redirected to your organization realm!",
   "permissions": ["storage", "declarativeNetRequest"],
   "host_permissions": ["https://*.auth0.com/*"],
   "background": {
