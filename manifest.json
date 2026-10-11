@@ -5,8 +5,7 @@
   "description": "Fix Auth0 connection realm.",
   "permissions": ["storage", "declarativeNetRequest"],
   "host_permissions": ["https://*.auth0.com/*"],
-  "background": {
-    "service_worker": "background.js"
-  },
-  "options_page": "options.html"
+  "options_ui": {
+    "page": "options.html"
+  }
 }
