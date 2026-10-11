@@ -4,8 +4,20 @@ Organizations using federated SSO for auth0 need to define one of them as defaul
 Users in other domains than the default get then redirected to the wrong SSO page
 when they click on a link requiring auth0 authentication.
 
-This extension is not connected in any way with okta or auth0, but solves an
-annoying problem.
+This extension solves that problem by catching the 302, and editing it to point
+at the connection domain of your choice. I am not connected in any way to okta
+or auth0, I was just annoyed by broken links.
+
+This extension has minimal permissions: it will only apply to `auth0.com`,
+and do not collect any data.
+
+## Installation instructions
+
+Go to the latest version in [releases.](https://github.com/camiloaa/auth0-redirect/releases)
+
+Firefox will let you install it directly from the link.
+
+Chrome will require you to unpack it and install in developer mode.
 
 ## Configure this extension
 
