@@ -15,9 +15,10 @@ and do not collect any data.
 
 Go to the latest version in [releases.](https://github.com/camiloaa/auth0-redirect/releases)
 
-Firefox will let you install it directly from the link.
+Firefox: Click on the xpi file and allow install.
 
-Chrome will require you to unpack it and install in developer mode.
+Chrome: Download the zip file, extract the extension somewhere, go to chrome://extensions,
+enable developer mode, and then click on `load unpacked`.
 
 ## Configure this extension
 
